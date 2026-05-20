@@ -58,8 +58,18 @@ let m = {
             break;
 
             case "igual":
-                //console.log("igual");
-                p.operaciones.innerHTML = eval(p.operaciones.innerHTML);
+
+            // validar división por cero
+            if (p.operaciones.innerHTML.includes("/0")) {
+                p.operaciones.innerHTML = "Error";
+            } else {
+                try {
+                    p.operaciones.innerHTML =
+                    eval(p.operaciones.innerHTML);
+                } catch {
+                    p.operaciones.innerHTML = "Error";
+                }
+            }
             break;
         }
     },
