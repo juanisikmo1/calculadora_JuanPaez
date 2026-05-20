@@ -57,6 +57,21 @@ let m = {
                 p.operaciones.innerHTML += digito;
             break;
 
+            case "raiz":
+            try {
+                let valor =
+                parseFloat(p.operaciones.innerHTML);
+                if(valor < 0){
+                    p.operaciones.innerHTML = "Error";
+                }else{
+                    p.operaciones.innerHTML =
+                    Math.sqrt(valor);
+                }
+            } catch {
+                p.operaciones.innerHTML = "Error";
+            }
+            break;
+
             case "igual":
 
             // validar división por cero
@@ -86,46 +101,42 @@ let m = {
         if (!isNaN(tecla)) {
 
             m.calculadora("numero", tecla);
-
         }
 
         // operadores
         else if (["+", "-", "*", "/"].includes(tecla)) {
 
             m.calculadora("simbolo", tecla);
-
         }
 
         // decimal
         else if (tecla == ".") {
 
             m.calculadora("decimal", tecla);
-
         }
 
         // enter
         else if (tecla == "Enter") {
 
             m.calculadora("igual", "=");
-
         }
 
         // borrar último carácter
         else if (tecla == "Backspace") {
 
             let texto = p.operaciones.innerHTML;
-
+            
             if (texto.length > 1) {
-
                 p.operaciones.innerHTML =
                 texto.slice(0, -1);
-
             } else {
-
                 p.operaciones.innerHTML = "0";
-
             }
+        }
 
+        // raíz cuadrada
+        else if (tecla == "r") {
+        m.calculadora("raiz", "√");
         }
 
     }
