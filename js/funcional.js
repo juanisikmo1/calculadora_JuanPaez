@@ -2,6 +2,7 @@
 
 let p = {
     teclas:document.querySelectorAll("#calculadora ul li"),
+    borrar: document.querySelector("#borrar"),
     accion:null,
     digito:null,
     operaciones:document.querySelector("#operaciones"),
@@ -19,6 +20,10 @@ let m = {
         {
             p.teclas[i].addEventListener("click", m.oprimirtecla)
         }
+        //borrar
+        p.borrar.addEventListener("click", m.limpiar);
+        //teclado
+        document.addEventListener("keydown", m.teclado);
     },
     oprimirtecla: function(tecla)
     {
@@ -57,6 +62,62 @@ let m = {
                 p.operaciones.innerHTML = eval(p.operaciones.innerHTML);
             break;
         }
+    },
+    limpiar:function()
+    {
+        p.operaciones.innerHTML = "0";
+    },
+    teclado: function (evento)
+    {
+
+        let tecla = evento.key;
+
+        // números
+        if (!isNaN(tecla)) {
+
+            m.calculadora("numero", tecla);
+
+        }
+
+        // operadores
+        else if (["+", "-", "*", "/"].includes(tecla)) {
+
+            m.calculadora("simbolo", tecla);
+
+        }
+
+        // decimal
+        else if (tecla == ".") {
+
+            m.calculadora("decimal", tecla);
+
+        }
+
+        // enter
+        else if (tecla == "Enter") {
+
+            m.calculadora("igual", "=");
+
+        }
+
+        // borrar último carácter
+        else if (tecla == "Backspace") {
+
+            let texto = p.operaciones.innerHTML;
+
+            if (texto.length > 1) {
+
+                p.operaciones.innerHTML =
+                texto.slice(0, -1);
+
+            } else {
+
+                p.operaciones.innerHTML = "0";
+
+            }
+
+        }
+
     }
 }
 m.inicio();
