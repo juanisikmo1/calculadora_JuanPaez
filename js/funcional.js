@@ -86,6 +86,49 @@ let m = {
                 }
             }
             break;
+            case "seno":
+
+    try {
+
+        let valor =
+        parseFloat(p.operaciones.innerHTML);
+
+        // grados → radianes
+        let radianes =
+        valor * (Math.PI / 180);
+
+        p.operaciones.innerHTML =
+        Math.sin(radianes);
+
+    } catch {
+
+        p.operaciones.innerHTML = "Error";
+
+    }
+
+    break;
+
+    case "coseno":
+
+        try {
+
+            let valor =
+            parseFloat(p.operaciones.innerHTML);
+
+            // grados → radianes
+            let radianes =
+            valor * (Math.PI / 180);
+
+            p.operaciones.innerHTML =
+            Math.cos(radianes);
+
+        } catch {
+
+            p.operaciones.innerHTML = "Error";
+
+        }
+
+    break;
         }
     },
     limpiar:function()
