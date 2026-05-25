@@ -148,6 +148,20 @@ let m = {
                 }
 
             break;
+            case "potencia":
+
+                let ultimoPotencia =
+                p.operaciones.innerHTML.slice(-1);
+
+                // evitar operadores repetidos
+                if(["+","-","*","/","**"].includes(ultimoPotencia))
+                {
+                    return;
+                }
+
+                p.operaciones.innerHTML += "**";
+
+            break;
         }
     },
     limpiar:function()
@@ -210,6 +224,11 @@ let m = {
         else if (tecla == "c") {
 
             m.calculadora("coseno", "cos");
+        }
+        // potencia
+        else if (tecla == "^") {
+
+            m.calculadora("potencia", "^");
         }
 
     }

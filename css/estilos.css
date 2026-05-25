@@ -121,13 +121,15 @@ li{
 }
 .raiz,
 .seno,
-.coseno{
+.coseno,
+.potencia{
     background:#5856d6;
     color:white;
 }
 
 .raiz:hover,
 .seno:hover,
-.coseno:hover{
+.coseno:hover,
+.potencia:hover{
     background:#7d7aff;
 }
