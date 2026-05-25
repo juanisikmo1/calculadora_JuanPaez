@@ -38,8 +38,10 @@ let m = {
         switch(accion)
         {
             case "numero":
-                //console.log("numero");
-                if(p.operaciones.innerHTML == "0")
+                if(
+                    p.operaciones.innerHTML == "0" ||
+                    p.operaciones.innerHTML == "Error"
+                )
                 {
                     p.operaciones.innerHTML = digito;
                 }else{
@@ -48,13 +50,34 @@ let m = {
             break;
 
             case "simbolo":
-                //console.log("simbolo");
-                p.operaciones.innerHTML += digito;
+
+            let ultimo =
+            p.operaciones.innerHTML.slice(-1);
+
+            // evitar operadores repetidos
+            if(["+","-","*","/"].includes(ultimo))
+            {
+                return;
+            }
+
+            p.operaciones.innerHTML += digito;
             break;
 
             case "decimal":
                 //console.log("decimal");
-                p.operaciones.innerHTML += digito;
+                let partes =
+            p.operaciones.innerHTML.split(/[\+\-\*\/]/);
+
+            let actual =
+            partes[partes.length - 1];
+
+            // evitar doble decimal
+            if(actual.includes("."))
+            {
+                return;
+            }
+
+            p.operaciones.innerHTML += digito;
             break;
 
             case "raiz":
@@ -73,62 +96,58 @@ let m = {
             break;
 
             case "igual":
-
-            // validar división por cero
-            if (p.operaciones.innerHTML.includes("/0")) {
-                p.operaciones.innerHTML = "Error";
-            } else {
                 try {
-                    p.operaciones.innerHTML =
+                    let resultado =
                     eval(p.operaciones.innerHTML);
+                    if(!isFinite(resultado)){
+                        p.operaciones.innerHTML = "Error";
+                    }else{
+                        p.operaciones.innerHTML = resultado;
+                    }
                 } catch {
                     p.operaciones.innerHTML = "Error";
                 }
-            }
             break;
+
             case "seno":
 
-    try {
+                try {
 
-        let valor =
-        parseFloat(p.operaciones.innerHTML);
+                    let valor =
+                    eval(p.operaciones.innerHTML);
 
-        // grados → radianes
-        let radianes =
-        valor * (Math.PI / 180);
+                    let radianes =
+                    valor * (Math.PI / 180);
 
-        p.operaciones.innerHTML =
-        Math.sin(radianes);
+                    p.operaciones.innerHTML =
+                    Math.sin(radianes);
 
-    } catch {
+                } catch {
 
-        p.operaciones.innerHTML = "Error";
+                    p.operaciones.innerHTML = "Error";
+                }
 
-    }
+            break;
 
-    break;
+            case "coseno":
 
-    case "coseno":
+                try {
 
-        try {
+                    let valor =
+                    eval(p.operaciones.innerHTML);
 
-            let valor =
-            parseFloat(p.operaciones.innerHTML);
+                    let radianes =
+                    valor * (Math.PI / 180);
 
-            // grados → radianes
-            let radianes =
-            valor * (Math.PI / 180);
+                    p.operaciones.innerHTML =
+                    Math.cos(radianes);
 
-            p.operaciones.innerHTML =
-            Math.cos(radianes);
+                } catch {
 
-        } catch {
+                    p.operaciones.innerHTML = "Error";
+                }
 
-            p.operaciones.innerHTML = "Error";
-
-        }
-
-    break;
+            break;
         }
     },
     limpiar:function()
@@ -180,6 +199,17 @@ let m = {
         // raíz cuadrada
         else if (tecla == "r") {
         m.calculadora("raiz", "√");
+        }
+        // seno
+        else if (tecla == "s") {
+
+            m.calculadora("seno", "sin");
+        }
+
+        // coseno
+        else if (tecla == "c") {
+
+            m.calculadora("coseno", "cos");
         }
 
     }

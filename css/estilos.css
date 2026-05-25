@@ -119,3 +119,15 @@ li{
 #borrar:hover{
     background:#ff5e57;
 }
+.raiz,
+.seno,
+.coseno{
+    background:#5856d6;
+    color:white;
+}
+
+.raiz:hover,
+.seno:hover,
+.coseno:hover{
+    background:#7d7aff;
+}
