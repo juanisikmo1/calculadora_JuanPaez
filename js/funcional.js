@@ -150,11 +150,17 @@ let m = {
             break;
             case "potencia":
 
-                let ultimoPotencia =
-                p.operaciones.innerHTML.slice(-1);
+                let texto =
+                p.operaciones.innerHTML;
 
-                // evitar operadores repetidos
-                if(["+","-","*","/","**"].includes(ultimoPotencia))
+                // evitar terminar en operador
+                if(/[+\-*/]$/.test(texto))
+                {
+                    return;
+                }
+
+                // evitar repetir **
+                if(texto.endsWith("**"))
                 {
                     return;
                 }
